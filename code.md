@@ -1,0 +1,121 @@
+```R
+library(shiny)
+library(imola)
+library(dplyr)
+
+# Create a single filter as a NLQ preposition
+#
+# @param prefix_text The text to display before the filter input.
+# @param input The input that the user can interact with.
+# @param suffix_text The text to display after the filter input.
+#
+# @return A UI tagList.
+filter_preposition <- function(prefix_text, input, suffix_text) {
+  div(
+    class = "filter-preposition",
+    prefix_text, input, suffix_text
+  )
+}
+
+# Create a full filter query using multiple prepositions
+#
+# @param prefix_text The text to display at the start of the filter sentence.
+# @param Any number of `filter_preposition()` to use in the query filter.
+# @param suffix_text The text to display at the end of the filter sentence.
+#
+# @return A UI tagList.
+filter_query <- function(prefix_text = "", ..., suffix_text = "") {
+  div(
+    class = "filter-query",
+    prefix_text, ..., suffix_text
+  )
+}
+
+# Generate the filter query for the application
+filters <- filter_query(
+  prefix_text = "Show me",
+
+  # filter number of results
+  filter_preposition(
+    "",
+    selectInput("quantity", "", c(5, 10, 15)),
+    "cars,"
+  ),
+
+  # number of car gears
+  filter_preposition(
+    "that have",
+    selectInput("gear", "", sort(unique(mtcars$gear))),
+    "gears,"
+  ),
+
+  # minimum horse power
+  filter_preposition(
+    "with at least",
+    numericInput("hp", "", min(mtcars$hp),
+      step = 5,
+      min = min(mtcars$hp),
+      max = max(mtcars$hp)
+    ),
+    "horse power,"
+  ),
+
+  # fuel usage
+  filter_preposition(
+    "and that consume at most",
+    numericInput("mpg", "", 50,
+      step = 10,
+      min = min(mtcars$mpg),
+      max = 50
+    ),
+    "miles per gallon."
+  ),
+
+  suffix_text = ""
+)
+
+# Define UI for the application
+ui <- gridPage(
+  areas = list("filters", "output"),
+  rows = c("auto", "1fr"),
+
+  filters = flexPanel(filters),
+
+  output = tableOutput("results")
+)
+
+server <- function(input, output, session) {
+
+  # Observe filter values and update the results table
+  observeEvent(c(input$quantity, input$hp, input$gear, input$mpg), {
+
+    results <- mtcars
+
+    if (!is.null(input$gear)) {
+      results <- results %>%
+        filter(gear == as.numeric(input$gear))
+    }
+
+    if (!is.null(input$hp)) {
+      results <- results %>%
+        filter(hp >= input$hp)
+    }
+
+    if (!is.null(input$mpg)) {
+      results <- results %>%
+        filter(mpg <= input$mpg)
+    }
+
+    if (!is.null(input$quantity)) {
+      results <- results %>%
+        slice_head(n = as.numeric(input$quantity))
+    }
+
+    output$results <- renderTable(results, rownames = TRUE)
+  })
+}
+
+# Run the application
+shinyApp(ui = ui, server = server)
+
+```
