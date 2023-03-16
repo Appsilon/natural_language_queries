@@ -1,6 +1,7 @@
 library(shiny)
 library(imola)
 library(dplyr)
+library(markdown)
 
 # Application dependencies
 include_styles <- tags$head(
