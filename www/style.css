@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@500;600;700&display=swap');
+
 body {
   background: #123549;
   color: white;
+  font-family: 'Maven Pro', sans-serif;
+  font-weight: 700;
 }
 
 #grid-page-wrapper {
@@ -34,6 +38,7 @@ body {
 
 .shiny-input-container {
   width: 50px !important;
+  margin-bottom: 0px;
 }
 
 #hp, #mpg {
@@ -115,13 +120,13 @@ body {
 }
 
 
-.selectize-input {
+.nlq-styling .selectize-input {
   background-color: transparent !important;
-  color: #ffef00;
+  color: #2F80ED;
   border: none !important;
   font-size: 120%;
   outline: none !important;
-  border-bottom: 1px dashed #ffef00 !important;
+  border-bottom: 1px dashed #2F80ED !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   text-align: center;
@@ -129,43 +134,125 @@ body {
   padding-left: 0;
   padding-right: 0;
 }
-.form-control {
+.nlq-styling .form-control {
   background-color: transparent !important;
-  color: #ffef00;
+  color: #2F80ED;
   border: none !important;
   font-size: 120%;
   outline: none !important;
-  border-bottom: 1px dashed #ffef00 !important;
+  border-bottom: 1px dashed #2F80ED !important;
   border-radius: 0;
   box-shadow: none !important;
   text-align: center;
-  padding-left: 30%;
   padding-bottom: 0px;
-  /* line-height: 2; */
-  margin-bottom: 10px !important;
+  margin-bottom: 5px !important;
   padding-left: 0;
   padding-right: 0;
+  padding-bottom: 5px;
 }
 
-.selectize-control.single .selectize-input:after {
+.nlq-styling .selectize-control.single .selectize-input:after {
   opacity: 0;
   display: block !important;
 }
 
-.selectize-control {
+.nlq-styling .selectize-control {
   width: 50px !important;
   padding: 0 !important;
   margin: 0 !important;
 }
 
-input[type=number]::-webkit-inner-spin-button {
+.nlq-styling input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
   opacity: 0;
   display: none;
 }
-input[type=number]::-webkit-inner-spin-button {
+.nlq-styling input[type=number]::-webkit-inner-spin-button {
   -moz-appearance: textfield;
   appearance: textfield;
   margin: 0;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2F80ED;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2F80ED;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.toggle-filters-wrapper {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.nlq-styling .control-label,
+.default-styling .preposition-affix {
+  display: none;
+}
+
+.default-styling .control-label,
+.nlq-styling .preposition-affix {
+  display: block;
+}
+
+.default-styling .shiny-input-container {
+  min-width: 300px;
 }

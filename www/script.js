@@ -7,3 +7,8 @@ function openNav() {
 function closeNav() {
   document.getElementById("myNav").style.width = "0%";
 }
+
+function toggleFilters() {
+  document.querySelector(".filter-query").classList.toggle("nlq-styling")
+  document.querySelector(".filter-query").classList.toggle("default-styling")
+}

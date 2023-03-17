@@ -22,7 +22,9 @@ include_styles <- tags$head(
 filter_preposition <- function(prefix_text, input, suffix_text) {
   div(
     class = "filter-preposition",
-    prefix_text, input, suffix_text
+    tags$span(class = "preposition-affix", prefix_text),
+    input,
+    tags$span(class = "preposition-affix", suffix_text)
   )
 }
 
@@ -35,8 +37,10 @@ filter_preposition <- function(prefix_text, input, suffix_text) {
 # @return A UI tagList.
 filter_query <- function(prefix_text = "", ..., suffix_text = "") {
   div(
-    class = "filter-query",
-    prefix_text, ..., suffix_text
+    class = "default-styling filter-query",
+    tags$span(class = "preposition-affix", prefix_text),
+    ...,
+    tags$span(class = "preposition-affix", suffix_text)
   )
 }
 
@@ -47,21 +51,21 @@ filters <- filter_query(
   # filter number of results
   filter_preposition(
     "",
-    selectInput("quantity", "", c(5, 10, 15)),
+    selectInput("quantity", "Number of Results", c(5, 10, 15)),
     "cars,"
   ),
 
   # number of car gears
   filter_preposition(
     "that have",
-    selectInput("gear", "", sort(unique(mtcars$gear))),
+    selectInput("gear", "Number of Gears", sort(unique(mtcars$gear))),
     "gears,"
   ),
 
   # minimum horse power
   filter_preposition(
     "with at least",
-    numericInput("hp", "", min(mtcars$hp),
+    numericInput("hp", "Horse Power", min(mtcars$hp),
       step = 5,
       min = min(mtcars$hp),
       max = max(mtcars$hp)
@@ -72,7 +76,7 @@ filters <- filter_query(
   # fuel usage
   filter_preposition(
     "and a fuel economy of",
-    numericInput("mpg", "", 50,
+    numericInput("mpg", "Miles per Gallon", min(mtcars$mpg),
       step = 10,
       min = min(mtcars$mpg),
       max = 50
@@ -120,6 +124,16 @@ ui <- gridPage(
       target = "_blank",
       "View on Github"
     )
+  ),
+
+  div(
+    class = "toggle-filters-wrapper",
+
+    tags$label(
+      class = "switch",
+      tags$input(type = "checkbox", onclick = "toggleFilters();"),
+      tags$span(class = "slider round")
+    )
   )
 )
 
@@ -142,7 +156,7 @@ server <- function(input, output, session) {
 
     if (!is.null(input$mpg)) {
       results <- results %>%
-        filter(mpg <= input$mpg)
+        filter(mpg >= input$mpg)
     }
 
     if (!is.null(input$quantity)) {
