@@ -6,6 +6,8 @@ body {
 #grid-page-wrapper {
   justify-content: center;
   align-items: center;
+
+  padding: 20px;
 }
 
 #results {
@@ -31,7 +33,7 @@ body {
 }
 
 .shiny-input-container {
-  width: 100px !important;
+  width: 50px !important;
 }
 
 #hp, #mpg {
@@ -110,4 +112,60 @@ body {
     top: 15px;
     right: 35px;
   }
+}
+
+
+.selectize-input {
+  background-color: transparent !important;
+  color: #ffef00;
+  border: none !important;
+  font-size: 120%;
+  outline: none !important;
+  border-bottom: 1px dashed #ffef00 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  text-align: center;
+  /* padding-left: 40%; */
+  padding-left: 0;
+  padding-right: 0;
+}
+.form-control {
+  background-color: transparent !important;
+  color: #ffef00;
+  border: none !important;
+  font-size: 120%;
+  outline: none !important;
+  border-bottom: 1px dashed #ffef00 !important;
+  border-radius: 0;
+  box-shadow: none !important;
+  text-align: center;
+  padding-left: 30%;
+  padding-bottom: 0px;
+  /* line-height: 2; */
+  margin-bottom: 10px !important;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.selectize-control.single .selectize-input:after {
+  opacity: 0;
+  display: block !important;
+}
+
+.selectize-control {
+  width: 50px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  opacity: 0;
+  display: none;
+}
+input[type=number]::-webkit-inner-spin-button {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0;
 }

@@ -71,13 +71,13 @@ filters <- filter_query(
 
   # fuel usage
   filter_preposition(
-    "and that consume at most",
+    "and a fuel economy of",
     numericInput("mpg", "", 50,
       step = 10,
       min = min(mtcars$mpg),
       max = 50
     ),
-    "miles per gallon."
+    "miles per gallon or more."
   ),
 
   suffix_text = ""
